@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const CANCELLABLE_STATUSES = new Set(['queued', 'processing']);
-  const YOUTUBE_URL_PATTERN = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i;
+  const VIDEO_URL_PATTERN = /^(https?:\/\/)?(?:(?:www|m)\.)?(?:youtube\.com|youtu\.be|vimeo\.com|player\.vimeo\.com|dailymotion\.com|dai\.ly)\//i;
 
   const MAX_DOWNLOAD_ENTRIES = 8;
   const POLL_INTERVAL = 1000;
@@ -1921,7 +1921,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elements.youtubeSearchButton) {
     elements.youtubeSearchButton.addEventListener('click', () => {
       const currentValue = elements.ytInput ? elements.ytInput.value.trim() : '';
-      const initialQuery = currentValue && !YOUTUBE_URL_PATTERN.test(currentValue) ? currentValue : '';
+      const initialQuery = currentValue && !VIDEO_URL_PATTERN.test(currentValue) ? currentValue : '';
       openYouTubeSearchModal(initialQuery);
     });
   }
@@ -2186,9 +2186,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const errors = [];
     if (!payload.yturl) {
-      errors.push('YouTube URL is required.');
-    } else if (!YOUTUBE_URL_PATTERN.test(payload.yturl)) {
-      errors.push('Please enter a valid YouTube URL.');
+      errors.push('Video URL is required.');
+    } else if (!VIDEO_URL_PATTERN.test(payload.yturl)) {
+      errors.push('Please enter a supported video URL (YouTube, Vimeo, or Dailymotion).');
     }
     if (!payload.movieId && !payload.standalone) {
       errors.push('Please select a valid movie from the list.');

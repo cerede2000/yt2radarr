@@ -16,6 +16,7 @@ import selectors
 from dataclasses import dataclass
 from collections.abc import Iterable
 from typing import Any, Callable, Dict, List, Optional, Tuple
+from urllib.parse import urlparse
 
 from glob import glob as glob_paths
 
@@ -1021,14 +1022,45 @@ ALLOWED_PLAYLIST_MODES = {"single", "merge"}
 
 
 def _validate_request_urls(data: Dict, error: Callable[[str], None]) -> str:
-    """Return the validated YouTube URL from the request payload."""
+    """Return the validated video URL from the request payload."""
 
-    yt_url = (data.get("yturl") or "").strip()
-    if not yt_url:
-        error("YouTube URL is required.")
-    elif not re.search(r"(youtube\.com|youtu\.be)/", yt_url):
-        error("Please provide a valid YouTube URL.")
-    return yt_url
+    raw_url = (data.get("yturl") or "").strip()
+    if not raw_url:
+        error("Video URL is required.")
+        return raw_url
+
+    url_with_scheme = raw_url
+    if not re.match(r"^[a-z][a-z0-9+.-]*://", raw_url, flags=re.IGNORECASE):
+        url_with_scheme = f"https://{raw_url}"
+
+    try:
+        parsed = urlparse(url_with_scheme)
+    except ValueError:
+        error("Please provide a valid video URL.")
+        return raw_url
+
+    allowed_hosts = {
+        "youtube.com",
+        "www.youtube.com",
+        "m.youtube.com",
+        "youtu.be",
+        "vimeo.com",
+        "www.vimeo.com",
+        "player.vimeo.com",
+        "dailymotion.com",
+        "www.dailymotion.com",
+        "dai.ly",
+        "www.dai.ly",
+    }
+
+    hostname = (parsed.hostname or "").lower()
+    if parsed.scheme not in {"http", "https"} or hostname not in allowed_hosts:
+        error("Only YouTube, Vimeo, or Dailymotion URLs are supported.")
+        return raw_url
+
+    clean_path = parsed.path or "/"
+    safe_url = parsed._replace(path=clean_path).geturl()
+    return safe_url
 
 
 def _validate_movie_selection(data: Dict, error: Callable[[str], None]) -> str:

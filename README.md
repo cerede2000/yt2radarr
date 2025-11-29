@@ -1,6 +1,6 @@
 # 🎬 yt2radarr
 
-A web UI that turns any publicly accessible YouTube video into a Radarr-ready movie file. Paste a YouTube URL, pick a movie from Radarr, and yt2radarr will download, rename, and drop the file exactly where Radarr (and Plex/Jellyfin) expects it.
+A web UI that turns any publicly accessible video from YouTube, Vimeo, or Dailymotion into a Radarr-ready movie file. Paste the video URL, pick a movie from Radarr, and yt2radarr will download, rename, and drop the file exactly where Radarr (and Plex/Jellyfin) expects it.
 
 > Built purely as a hobby project by [Gil Meyuhas](https://github.com/Gilmeyuhas) to make managing a personal media library easier. If you want to help improve it, please open an issue or pull request. Community contributions are more than welcome!
 
@@ -16,7 +16,7 @@ A web UI that turns any publicly accessible YouTube video into a Radarr-ready mo
 * Records download jobs and progress so you can review historical runs.
 
 ### Real-world example
-I use yt2radarr to keep live concerts and documentaries in my home media library. Paste the YouTube link, choose the matching movie or an "Extras" subfolder, and Plex picks it up instantly without any manual file management.
+I use yt2radarr to keep live concerts and documentaries in my home media library. Paste the video link, choose the matching movie or an "Extras" subfolder, and Plex picks it up instantly without any manual file management.
 
 ## 🧰 Requirements
 
