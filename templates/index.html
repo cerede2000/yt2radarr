@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YT2Radarr - Radarr YouTube Video Importer</title>
+  <title>YT2Radarr - Radarr Video Importer</title>
   <link
     rel="icon"
     type="image/svg+xml"
@@ -24,7 +24,7 @@
           alt="YT2Radarr logo"
           class="app-logo"
         />
-        <h1>YT2Radarr - Radarr YouTube Video Importer</h1>
+        <h1>YT2Radarr - Radarr Video Importer</h1>
       </div>
       <div class="header-actions">
         <button
@@ -53,14 +53,14 @@
       <div class="main-column">
         <form id="movieForm" novalidate>
           <div class="form-group">
-            <label for="yturl">YouTube URL</label>
+            <label for="yturl">Video URL</label>
             <div class="youtube-input-wrapper">
               <input
                 type="url"
                 id="yturl"
                 name="yturl"
                 placeholder="https://www.youtube.com/watch?v=..."
-                pattern="^(https?:\\/\\/)?(www\\.)?(youtube\\.com|youtu\\.be)\\/.*$"
+                pattern="^(https?:\\/\\/)?(?:(?:www|m)\\.)?(?:youtube\\.com|youtu\\.be|vimeo\\.com|player\\.vimeo\\.com|dailymotion\\.com|dai\\.ly)\\/.*$"
                 required
               />
               <button type="button" class="button-secondary" id="youtubeSearchButton">
@@ -112,7 +112,7 @@
             <label for="standalone">Download without Radarr (create standalone folder)</label>
           </div>
           <p class="help-text" id="standaloneHelp">
-            By default, we'll create a folder using the YouTube title inside your first
+            By default, we'll create a folder using the video title inside your first
             configured library path.
           </p>
           <div class="standalone-options" id="standaloneNamingOptions" hidden>
